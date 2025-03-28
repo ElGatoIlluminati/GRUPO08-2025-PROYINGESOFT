@@ -1,0 +1,82 @@
+table {   
+  background:white;
+  margin-left: auto;  
+  margin-right: auto;
+  min-height: 60vh;
+  min-width: 180vh;
+  table-layout: fixed;
+  font-family: "Lufga";
+  border-collapse: collapse;
+}
+
+table td{
+    border: 1px solid #ddd;
+    padding: 16px;
+}
+
+table th{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #26431d;
+    color: white;
+}
+  
+trFila{
+    height: 30px;
+}
+
+.tdFoto{
+    width: 50px;
+}
+
+.tdNombre{
+    width: 100px;
+}
+
+.tdPreparacion{
+    
+    text-align: left;
+    width: 140px;
+}
+
+.tdOpcion{
+    width: 50px;
+}
+
+.tdAgregar{
+    width: 50px;
+}
+
+.tdCalificar{
+    width: 70px;
+}
+
+.opcion{
+    margin-left: 500px;
+    text-align: left;    
+}
+
+.busqueda{
+    display: flex;    
+    margin-left: 50px;
+    height: 25px;    
+    margin-bottom: 10px;
+}
+
+.separador{
+    width: 50px;
+    font-weight: bold;
+    font-size: 20;    
+}
+
+a{
+    text-decoration: none;
+}
+
+.comentarios{
+    text-align: left;
+    width: 100%; 
+    height: 100px;
+}
+

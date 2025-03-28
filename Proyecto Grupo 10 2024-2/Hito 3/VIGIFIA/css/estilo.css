@@ -1,0 +1,202 @@
+/* --------------------------------------------------------- Fuentes de Texto ---------------------------------------------------------*/
+@font-face 
+{
+    font-family: Arial;
+    src: url("../fonts/Arial.ttf");
+}
+
+@font-face 
+{
+    font-family: Arial;
+    src: url("../fonts/Arial.otf");
+}
+
+@font-face 
+{
+    font-family: Arial;
+    src: url("../fonts/Arial.otf");
+}
+
+@font-face 
+{
+    font-family: Arial;
+    src: url("../fonts/Arial.otf");
+}
+
+/* --------------------------------------------------------- Estructura básica ---------------------------------------------------------*/
+
+body
+{
+    margin: 0;
+    display: grid;
+    grid-template-rows: 112px 1fr 1fr;
+    height: 300vh;
+}
+
+h1
+{
+    font-family: "Lufga_Black"
+}
+
+/* ------------------------ Estructura Básica: Menú/Cabecera ------------------------ */
+.cabeza
+{
+    position: sticky;
+    top: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 269px 1fr 1fr;
+    background-color: #3b692d;
+}
+
+.cabeza > div
+{
+    text-align: center;
+    vertical-align: middle;
+    border: 5px;
+    border-color: white;
+}
+
+.cabeza a
+{
+    font-family: "DFDMiliciana";
+    -webkit-text-stroke-width: 1px; 
+    text-decoration: none;
+    color: #ffffff;
+}
+
+
+.Boton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.FullBoton{
+    font-size: 35px;
+    padding: 10px;
+    background-color: #3b692d;
+    border-color: #529946;
+    border-style: outset;
+}
+
+.FullBoton:hover{
+    background-color: #26431d;
+}
+
+.MedioBoton{
+    font-size: 25px;
+    padding-left:  10px;
+    padding-right: 10px;
+    padding-top:   5px;
+    padding-bottom:5px;
+    background-color: #3b692d;
+    border-color: #3b692d;
+    border-style: outset;
+}
+
+.MedioBoton:hover{
+    background-color: #26431d;
+}
+
+.Logo
+{
+    align-items: center;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.Boletines
+{
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.Usuario
+{
+    grid-column: 3;
+    grid-row: 1;
+}
+
+/* ------------------- Estructura Básica: Cuerpo/Contenido de la página ------------------- */
+.cuerpo
+{
+    text-align: center;
+    color:#529946;
+}
+
+/* ---- Cuerpo: Login ---- */
+
+
+
+/* --------------------------- Estructura Básica: Pie de página --------------------------- */
+.piedepagina
+{
+    bottom: 0;
+    width: 100%;
+    margin-top: auto;
+    height: min-content;
+    text-align: center;
+    color:#ffffff;
+    background-color: #26431d;
+}
+
+/* --------------------------------------------------------- Cuerpo/Contenido de página: Home --------------------------------------------------------- */
+
+/* ------------------------ Tabla: Menú del día ------------------------ */
+
+#Almuerzo {
+    margin-left: auto;  
+    margin-right: auto;  
+    table-layout: fixed;
+    min-height: 60vh;
+    min-width: 170vh;
+    font-family: "Lufga";
+    border-collapse: collapse;
+  }
+  
+  #Almuerzo td, #Almuerzo th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #Almuerzo tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #Almuerzo tr:hover {background-color: #ddd;}
+
+  #Almuerzo th:hover {background-color: #101c0c;}
+  
+  #Almuerzo th {
+    font-family: "Lufga_Black";
+    font-size: x-large;
+    width: 30%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #529946;
+    color: white;
+    }
+
+/* ------------------------ Tabla: Menús de la semana ------------------------ */
+#Semanal {
+    margin-left: auto;  
+    margin-right: auto;
+    min-height: 60vh;
+    min-width: 180vh;
+    table-layout: fixed;
+    font-family: "Lufga";
+    border-collapse: collapse;
+}
+#Semanal td, #Semanal th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#Semanal th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #529946;
+    color: white;
+}
+
