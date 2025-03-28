@@ -6,3 +6,6 @@
 * Francisca Salinas | ROL: 202173569-0
 * Felipe Azargado | ROL: 202273089-7
 * Tutor: Eduardo Mendoza
+***
+## WIKI:
+Hacer click [aquí](https://github.com/ElGatoIlluminati/GRUPO08-2025-PROYINGESOFT/wiki) para acceder a la wiki.
