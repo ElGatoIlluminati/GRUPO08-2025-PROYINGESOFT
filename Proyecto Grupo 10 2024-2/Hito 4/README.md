@@ -23,6 +23,7 @@ Para la correcta revisión de esta entrega, se necesita **tener instalado Python
 * Abrir la carpeta base _"VIGIFIA"_ (la que contiene todos los archivos, incluyendo otra carpeta del mismo nombre) en _Visual Studio Code_
 * Ir a la otra carpeta _"VIGIFIA"_ que se encuentra en el interior, e ir a _"setting.py"_, y cambiar la contraseña de database por la propia de PostgreSQL.
 * Abrir la aplicación ***PGAdmin4*** _(incluída con PostgreSQL)_ y crear una nueva base llamada _postgres_ que esté vacía (solo en caso de que no esté creada. En caso de que esté creada, verificar que esté vacía en Servers > Databases > postgres > Schemas > Public > Tables).
+* En caso de no tener PostgreSQL añadido a las variables de entorno, debe añadirse el PATH. Buscar "Variables de entorno" (environment variables), ir al botón "Variables de entorno..." y, en caso de no existir un path que lleve a la carpeta "\bin" de postgreSQL, añadir una con el botón "Nuevo..." (El PATH debería verse como "C:\Program Files\PostgreSQL\17\bin")
 * Dirigirse donde se encuentra el archivo _"tester.dump"_ en Windows Powershell _(carpeta "VIGIFIA" padre)_ y ejecutar el siguiente código:
 	```
 	pg_restore -U postgres -h localhost -p 5432 -d postgres tester.dump # Y posteriormente colocar la contraseña que ocupamos en PostgreSQL.
