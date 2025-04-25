@@ -1,4 +1,4 @@
-## Sobre entrega Hito 4
+## Sobre entrega Hito 2
 
 Para la correcta revisión de esta entrega, se necesita **tener instalado Python y PostgreSQL** y seguir los siguientes pasos:
 * Descargar el archivo _"hito_4.zip"_ del rspositorio de GitHub, descomprimirlo y abrir la carpeta _"VIGIFIA"_. 
