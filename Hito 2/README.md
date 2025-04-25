@@ -1,7 +1,7 @@
 ## Sobre entrega Hito 2
 
 Para la correcta revisión de esta entrega, se necesita **tener instalado Python y PostgreSQL** y seguir los siguientes pasos:
-* Descargar el archivo _"hito_4.zip"_ del rspositorio de GitHub, descomprimirlo y abrir la carpeta _"VIGIFIA"_. 
+* Descargar el archivo _"VIGIFIA.zip"_ del repositorio de GitHub, descomprimirlo y abrir la carpeta _"VIGIFIA"_. 
 * En dicha carpeta, haciendo click derecho en el espacio vacío de la carpeta, abrir Windows Powershell _(de no aparecer, buscar Windows Powershell en el buscador de archivos, y navegar hasta dicha carpeta)_. Es importante no cerrar jamás la ventana, para no cerrar el entorno.
 * En WPS, crear un entorno virtual con el siguiente código: 
 	```
