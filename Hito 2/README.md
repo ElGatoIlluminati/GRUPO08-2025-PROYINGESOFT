@@ -38,4 +38,3 @@ Para la correcta revisión de esta entrega, se necesita **tener instalado Python
 * **Si no funciona la conexión con la base de datos, hay que ir al path y colocar postgres.bin.**
 * Si en algún momento cerramos el entorno en Windows Powershell, este tiene que volverse a abrir para que todos los pasos funcionen correctamente.
 
-  # FELIPE NO HIZO NADA REPRUEBENLO.
