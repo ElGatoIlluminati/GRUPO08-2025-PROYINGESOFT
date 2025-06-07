@@ -19,3 +19,4 @@ python manage.py migrate
 
 Si se quiere probar los botones de los boletines, simplemente crear un boletin con el boton "Crear boletin".
 Se debe iniciar sesión con un perfil de editor para crear un boletin.
+Cualquier duda con la base de datos, consultar por discord.
