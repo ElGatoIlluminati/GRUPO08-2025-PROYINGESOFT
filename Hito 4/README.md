@@ -1,5 +1,10 @@
 En caso de no funcionar la Base de Datos, correr los siguientes códigos en la terminal:
 ```
+psql -U postgre -d postgre 
+```
+Salir de psql con \q y ejecutar en terminal (fuera de psql):
+```
+rm -rf main/migrations/
 python manage.py flush
 ```
 Esto borra todos los datos y reinicia todo, incluyendo los permisos.
