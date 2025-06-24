@@ -1,0 +1,9 @@
+django
+psycopg2-binary
+python-dotenv
+Pillow
+xhtml2pdf
+
+requests          
+beautifulsoup4   
+lxml  

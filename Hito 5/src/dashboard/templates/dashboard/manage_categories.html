@@ -1,0 +1,46 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+{% block title %}Gestión de Categorías{% endblock %}
+
+{% block dashboard_content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Gestión de Categorías</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header"><h5 class="mb-0">Añadir Nueva Categoría</h5></div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="nombre_categoria" class="form-label">Nombre:</label>
+                            <input type="text" name="nombre_categoria" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Crear Categoría</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header"><h5 class="mb-0">Categorías Existentes</h5></div>
+                <ul class="list-group list-group-flush">
+                    {% for categoria in categorias %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ categoria.nombre }}
+                            <form action="{% url 'dashboard:delete_category' pk=categoria.pk %}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta categoría?');">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                            </form>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No hay categorías creadas.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

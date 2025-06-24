@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmar Eliminación de Cuenta{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h2>¿Estás seguro de que quieres eliminar tu cuenta?</h2>
+            <p class="lead">Esta acción es permanente y no se puede deshacer.</p>
+            <div class="alert alert-danger">
+                Todos tus datos, incluyendo los boletines que has creado, serán eliminados.
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-lg">Sí, eliminar mi cuenta</button>
+                <a href="{% url 'users:perfil' %}" class="btn btn-secondary btn-lg">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

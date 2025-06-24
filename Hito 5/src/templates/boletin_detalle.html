@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ boletin.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ boletin.title }}</h1>
+    <p><strong>Categoría:</strong> {{ boletin.category.nombre }}</p>
+    <p><strong>Autor:</strong> {{ boletin.author.username }}</p>
+    <p><strong>Fecha de Creación:</strong> {{ boletin.creation_date|date:"d F, Y H:i" }}</p>
+    
+    {% if boletin.document %}
+        <a href="{{ boletin.document.url }}" class="btn btn-success" target="_blank">Descargar PDF</a>
+    {% else %}
+        <p class="text-danger">No hay documento adjunto.</p>
+    {% endif %}
+
+    {% if user.userprofile.role == "Editor" or user.userprofile.role == "Administrador" %}
+        <a href="{% url 'boletines:editar' pk=boletin.pk %}" class="btn btn-warning">Editar</a>
+        <a href="{% url 'boletines:eliminar' pk=boletin.pk %}" class="btn btn-danger">Eliminar</a>
+    {% endif %}
+
+    <a href="{% url 'boletines:lista' %}" class="btn btn-secondary mt-3">Volver a la lista</a>
+{% endblock %}

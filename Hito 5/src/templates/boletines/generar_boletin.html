@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Generador de Boletines con IA{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h2 class="mb-0">Generar Nuevo Boletín Estratégico</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Introduce los detalles del boletín que deseas crear. Nuestra IA utilizará esta información para buscar en fuentes científicas y generar un borrador del documento.</p>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label"><strong>Título del Boletín:</strong></label>
+                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Ej: Impacto de la Sequía en Cultivos de Maíz" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="tema" class="form-label"><strong>Tema General:</strong></label>
+                            <select class="form-select" id="tema" name="tema" required>
+                                <option selected disabled value="">Selecciona un tema...</option>
+                                <option value="cambio_climatico">Adaptación y Mitigación al Cambio Climático</option>
+                                <option value="recursos_hidricos">Gestión Sostenible de Recursos Hídricos</option>
+                                <option value="sistemas_alimentarios">Sistemas Alimentarios Sostenibles</option>
+                                </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label"><strong>Descripción Detallada:</strong></label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="5" placeholder="Describe con el mayor detalle posible qué información necesitas, qué puntos clave debe tocar, y cualquier otro requisito específico." required></textarea>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-magic me-2"></i>Generar Borrador con IA
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

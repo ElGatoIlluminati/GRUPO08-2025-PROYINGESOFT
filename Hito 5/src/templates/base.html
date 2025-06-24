@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>VigiFIA: {% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <style>
+        /* SOLUCIÓN AL PROBLEMA DE ALTURA: 
+           Añadimos un 'padding-top' al body para dejar espacio para el header que es fijo.
+           Puedes ajustar el valor (ej: 170px) si tu header es más alto o más bajo. */
+        body {
+            padding-top: 165px; 
+        }
+    </style>
+
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <header id="top" class="fixed-top"> <div class="bg-white border-bottom py-3">
+            <div class="container-fluid d-flex flex-wrap align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-2">
+                    <a href="https://www.fia.cl/"><img src="{% static 'images/logo_fia.webp' %}" alt="Logo FIA" style="max-height: 65px;"></a>
+                    <a href="https://opia.fia.cl/601/w3-channel.html"><img src="{% static 'images/logo_fundacion.webp' %}" alt="Logo Fundación" style="max-height: 65px;"></a>
+                </div>
+                <form class="d-flex" role="search">
+                    <input class="search form-control me-2" type="search" placeholder="BUSCAR" aria-label="Buscar">
+                    <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
+                </form>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarInferior" aria-controls="navbarInferior" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarInferior">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" href="{% url 'core:home' %}"><i class="bi bi-house-door-fill"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'boletines:lista' %}">--BOLETINES--</a></li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <div class="d-flex align-items-center gap-2">
+                            {% if user.is_authenticated %}
+                                <li class="nav-item"><a class="nav-link account" href="{% url 'users:perfil' %}"><i class="bi bi-person-fill"></i> MI PÁGINA</a></li>
+                                <li class="nav-item"><a class="nav-link text-danger" href="{% url 'users:logout' %}"><i class="bi bi-box-arrow-right"></i> CERRAR SESIÓN</a></li>
+                            {% else %}
+                                <li class="nav-item"><a class="nav-link account" href="{% url 'users:login' %}"><i class="bi bi-person-fill"></i> INICIAR SESIÓN</a></li>
+                            {% endif %}
+                            <li class="nav-item"><a class="btn btn-success d-flex align-items-center" href="https://youtu.be/dQw4w9WgXcQ?si=aySJT4rzC0YpfS15"><i class="bi bi-envelope me-1"></i> Contacto</a></li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container flex-grow-1 my-4">
+        {% block content %} {% endblock %}
+    </main>
+
+    <footer id="footer" class="container-fluid mt-auto py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-12 logo-opia-footer">
+            <a href="http://www.fia.cl/" class="logo-gob"><img src="{% static 'images/logo_fia.webp' %}" alt="logo FIA" width="156" height="80"></a>
+            <a href="https://opia.fia.cl/601/w3-channel.html" class="logo-solo-texto">
+              <span class="texto-opia">Observatorio para la Innovación<br>Silvoagropecuaria y la Cadena Agroalimentaria</span>
+              <span class="texto-fia">FUNDACIÓN PARA LA INNOVACIÓN AGRARIA</span>
+            </a>
+          </div>
+          <div class="col-lg-3 col-md-4 col-12">
+            <p class="titulo">SITIOS DE INTERÉS</p>
+            <ul class="list-unstyled">
+              <li><a href="https://www.minagri.gob.cl/" target="blank">MINAGRI</a></li>
+              <li><a href="http://www.fia.cl/" target="blank">FIA</a></li>
+              <li><a href="http://bibliotecadigital.fia.cl/" target="blank">BIBLIOTECA DIGITAL FIA</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-4 col-12">
+            <p class="titulo">CONTACTO</p>
+            <p>Loreley 1582, La Reina, Santiago<br>Teléfono: +562 2431 3000</p>
+          </div>
+          <div class="col-lg-3 col-md-4 col-12">
+            <p class="titulo">REDES SOCIALES</p>
+            <a href="https://www.facebook.com/OpiaChile/" title="Facebook" class="rrss-icono"><span class="fa fa-facebook fa-lg"></span></a>
+            <a href="https://twitter.com/FIA_Chile" title="Twitter" class="rrss-icono"><span class="fa fa-twitter fa-lg"></span></a>
+            <a href="https://www.instagram.com/fia_chile/" title="Instagram" class="rrss-icono"><span class="fa fa-instagram fa-lg"></span></a>
+            <a href="https://www.linkedin.com/company/fiachile" title="Linkedin" class="rrss-icono"><span class="fa fa-linkedin fa-lg"></span></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>

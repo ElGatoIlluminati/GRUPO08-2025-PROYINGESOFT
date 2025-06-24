@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Mi Perfil{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    {% if user.is_superuser %}
+        <div class="alert alert-info d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-shield-lock-fill me-2"></i> Tienes permisos de Administrador.</span>
+            <a href="{% url 'dashboard:home' %}" class="btn btn-primary">
+                Ir al Panel de Administración
+            </a>
+        </div>
+    {% endif %}
+    
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Gestión de tu Cuenta
+                </div>
+                <div class="list-group list-group-flush" id="nav-tab" role="tablist">
+                    <button class="list-group-item list-group-item-action active" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button" role="tab">Información Personal</button>
+                    <button class="list-group-item list-group-item-action" id="nav-password-tab" data-bs-toggle="tab" data-bs-target="#nav-password" type="button" role="tab">Cambiar Contraseña</button>
+                    <button class="list-group-item list-group-item-action text-danger" id="nav-delete-tab" data-bs-toggle="tab" data-bs-target="#nav-delete" type="button" role="tab">Eliminar Cuenta</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-info" role="tabpanel">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Editar tu Perfil</h5>
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ user_form.as_p }}
+                                <button type="submit" name="update_profile" class="btn btn-primary">Guardar Cambios</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="nav-password" role="tabpanel">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Cambiar tu Contraseña</h5>
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ password_form.as_p }}
+                                <button type="submit" name="change_password" class="btn btn-primary">Actualizar Contraseña</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="nav-delete" role="tabpanel">
+                    <div class="card border-danger">
+                        <div class="card-body">
+                            <h5 class="card-title text-danger">Eliminar tu Cuenta</h5>
+                            <p>Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor, asegúrate de que quieres hacerlo.</p>
+                            <a href="{% url 'users:user_delete' %}" class="btn btn-danger">Proceder a la eliminación</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

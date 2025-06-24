@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmar Eliminación de Usuario{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-danger shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="mb-0">Confirmar Eliminación</h3>
+                </div>
+                <div class="card-body">
+                    <p class="lead">¿Estás absolutamente seguro de que quieres eliminar permanentemente al usuario?</p>
+                    <div class="alert alert-warning">
+                        <h4><strong>{{ object.username }}</strong></h4>
+                        <p class="mb-0">
+                            (Nombre: {{ object.get_full_name }}, Email: {{ object.email }})
+                        </p>
+                    </div>
+                    <p><strong>Esta acción no se puede deshacer.</strong> Todos los datos asociados a este usuario podrían ser eliminados o quedar huérfanos.</p>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-flex justify-content-end">
+                            <a href="{% url 'dashboard:user_list' %}" class="btn btn-secondary me-2">Cancelar</a>
+                            <button type="submit" class="btn btn-danger">Sí, estoy seguro, eliminar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

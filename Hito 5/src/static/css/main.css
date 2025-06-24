@@ -1,0 +1,142 @@
+/* =================================================================== */
+/* ARCHIVO DE ESTILOS PRINCIPAL - main.css                   */
+/* =================================================================== */
+
+
+/* --------------------------------------------------------- */
+/* 1. Fuentes y Estilos Globales              */
+/* --------------------------------------------------------- */
+
+/* --- Declaración de Fuentes --- */
+/* NOTA: Las rutas han sido corregidas para funcionar desde 'static/css/' */
+@font-face {
+  font-family: 'gobCL-bold';
+  src: url('../fonts/gobCL_Bold.otf'); /* Ruta corregida */
+}
+@font-face {
+  font-family: 'gobCL-heavy';
+  src: url('../fonts/gobCL_Heavy.otf'); /* Ruta corregida */
+}
+@font-face {
+  font-family: 'gobCL-light';
+  src: url('../fonts/gobCL_Light.otf'); /* Ruta corregida */
+}
+@font-face {
+  font-family: 'gobCL-regular';
+  src: url('../fonts/gobCL_Regular.otf'); /* Ruta corregida */
+}
+
+/* --- Estilos base para el Body --- */
+body {
+    /* La propiedad padding-top soluciona el problema de que el contenido
+       se oculte debajo del header. Ajusta el valor si es necesario. */
+    padding-top: 165px; 
+}
+
+
+/* --------------------------------------------------------- */
+/* 2. Estructura Principal (Layout)            */
+/* --------------------------------------------------------- */
+
+/* --- Header (Tomado de base_top.css) --- */
+#top .navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+#top .navbar-nav {
+    font-size: small;
+}
+#top .nav-link {
+    font-family: 'gobCL-light';
+    color: #003b5c;
+}
+#top .navbar-brand img {
+    max-height: 50px;
+}
+#top .search {
+    font-family: 'gobCL-regular';
+}
+#top .account {
+    font-family: 'gobCL-bold';
+}
+#top .form-control::placeholder {
+  color: #003b5c;
+  opacity: 1;
+}
+#top .form-control::-ms-input-placeholder {
+  color: #003b5c;
+}
+
+
+/* --- Footer (Tomado de base_bottom.css) --- */
+#footer {
+  background-color: #f1f1f1;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  color: #003b5c;
+  font-family: 'gobCL-regular';
+}
+#footer .titulo {
+  font-family: 'gobCL-bold';
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+#footer a {
+  color: #003b5c;
+  text-decoration: none;
+}
+#footer a:hover {
+  text-decoration: underline;
+}
+#footer .logo-opia-footer {
+  display: flex;
+  flex-direction: column;
+}
+#footer .logo-solo-texto {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+#footer .texto-fia {
+  font-family: 'gobCL-bold';
+}
+#footer .rrss-icono {
+  margin-right: 10px;
+  font-size: 1.5rem;
+}
+
+
+/* --------------------------------------------------------- */
+/* 3. Componentes Reutilizables             */
+/* --------------------------------------------------------- */
+
+/* --- Estilos para la tabla de Boletines (Tomado de estilo.css) --- */
+/* Lo hacemos más genérico para que pueda ser reutilizado */
+.table-custom {
+    margin-left: auto;  
+    margin-right: auto;  
+    table-layout: fixed;
+    width: 100%; /* Mejor que un ancho fijo */
+    border-collapse: collapse;
+}
+.table-custom td, .table-custom th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+.table-custom tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+.table-custom tr:hover {
+    background-color: #ddd;
+}
+.table-custom th {
+    font-size: large;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #529946;
+    color: white;
+}
+.table-custom th:hover {
+    background-color: #101c0c;
+}
