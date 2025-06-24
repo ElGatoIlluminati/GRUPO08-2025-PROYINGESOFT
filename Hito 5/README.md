@@ -32,10 +32,7 @@ cd "GRUPO08-2025-PROYINGESOFT/Hito 5/"
 El proyecto necesita un archivo `.env` para cargar las credenciales y configuraciones. Se incluyó una plantilla para facilitar el proceso.
 
 ```bash
-# En Windows (usando PowerShell)
-cp .env.example .env
-
-# En Mac o Linux
+# En Windows (usando PowerShell), Mac o Linux
 cp .env.example .env
 ```
 
