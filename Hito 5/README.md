@@ -97,6 +97,9 @@ Para facilitar la revisión, se pueden usar las siguientes cuentas pre-cargadas 
 | **Editor** | `editor` | `editor123` |
 | **Lector** | `lector` | `lector123` |
 
+El usuario Administrador tiene rol de admin, y los otros 2 usuarios por defecto son lectores, además debería haber pre-cargados 2 boletines de prueba, pero por alguna razón no se almaceno la foto ni el archivo, por lo cual hay que modificar el boletin y subir una nueva foto y pdf.
+Otro dato importante, el admin tiene su propio panel para crear etiquetas y otorgar roles a los usuarios
+
 -----
 
 ### Cómo Detener la Aplicación
