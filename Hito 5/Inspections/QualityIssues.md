@@ -2,8 +2,6 @@ A partir de la inspección realizada con el software de Sonarqube, se obtuvieron
 
 ![image](https://github.com/user-attachments/assets/1ab6b81f-5724-437a-9ce9-efe579c747d9)
 
-Seleccionamos de esta forma los problemas de seguridad que podrian ser los más críticos
-
 ---
 
 ### Quality Issue 1
