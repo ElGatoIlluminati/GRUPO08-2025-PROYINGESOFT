@@ -21,7 +21,7 @@ Primero, clonar este repositorio en la máquina local y navegar a la carpeta cor
 
 ```bash
 # Clonar el repositorio desde GitHub
-git clone [https://github.com/ElGatoIlluminati/GRUPO08-2025-PROYINGESOFT.git](https://github.com/ElGatoIlluminati/GRUPO08-2025-PROYINGESOFT.git)
+git clone https://github.com/ElGatoIlluminati/GRUPO08-2025-PROYINGESOFT.git
 
 # Navegar a la carpeta del Hito 5
 cd GRUPO08-2025-PROYINGESOFT/Hito\ 5/
