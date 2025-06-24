@@ -103,7 +103,8 @@ Cuando haya terminado de revisar, puede detener todos los servicios de Docker co
 docker-compose down
 ```
 
-> **Nota:** Si desea borrar también la base de datos para empezar de cero la próxima vez, use `docker-compose down -v`.
+> **Nota:** Si desea borrar también la base de datos para empezar de cero la próxima vez, use:
 
-```
+```bash
+docker-compose down -v
 ```
