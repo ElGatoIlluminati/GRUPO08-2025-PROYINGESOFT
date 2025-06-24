@@ -7,3 +7,4 @@ xhtml2pdf
 requests          
 beautifulsoup4   
 lxml
+django-summernote

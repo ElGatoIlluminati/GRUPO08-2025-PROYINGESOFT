@@ -1,37 +1,22 @@
 from django.urls import path
 from . import views
 
-# El app_name nos ayuda a organizar las URLs y a llamarlas fácilmente desde las plantillas
 app_name = 'boletines'
 
 urlpatterns = [
-    # Ruta para la página de inicio/lista de boletines
-    # ej: http://localhost:8000/
+    # Rutas para listar y ver detalles
     path('', views.BoletinListView.as_view(), name='lista'),
-
-    # Ruta para ver el detalle de un boletín
-    # ej: http://localhost:8000/boletines/5/
     path('<int:pk>/', views.BoletinDetailView.as_view(), name='detalle'),
-    
-    # Ruta para la vista previa del PDF
-    path('<int:pk>/preview/', views.pdf_preview_view, name='pdf_preview'),
 
-    # Ruta para enviar el boletín por correo
-    path('<int:pk>/enviar-correo/', views.enviar_boletin_email_view, name='enviar_email'),
-
-    # Ruta para crear un nuevo boletín
-    # ej: http://localhost:8000/boletines/crear/
+    # Rutas CRUD (Crear, Editar, Eliminar)
     path('crear/', views.BoletinCreateView.as_view(), name='crear'),
-
-    # Ruta para editar un boletín existente
-    # ej: http://localhost:8000/boletines/5/editar/
+    
+    # Aquí está la corrección: Usamos la nueva Clase 'BoletinUpdateView'
     path('<int:pk>/editar/', views.BoletinUpdateView.as_view(), name='editar'),
-
-    # Ruta para eliminar un boletín
-    # ej: http://localhost:8000/boletines/5/eliminar/
+    
     path('<int:pk>/eliminar/', views.BoletinDeleteView.as_view(), name='eliminar'),
 
-
-    # NUEVA RUTA para la generación con IA
-    path('generar/', views.generar_boletin_view, name='generar'),
+    # Rutas de funcionalidades adicionales
+    path('enviar-email/<int:pk>/', views.enviar_boletin_email_view, name='enviar_email'),
+    path('pdf-preview/<int:pk>/', views.pdf_preview_view, name='pdf_preview'),
 ]

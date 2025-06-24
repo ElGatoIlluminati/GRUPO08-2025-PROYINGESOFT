@@ -1,24 +1,36 @@
 # Archivos de entorno y secretos
+# Nunca subir credenciales al repositorio
 .env
 .env.*
 
-# Archivos de base de datos
+# Archivos de base de datos local (si se usara SQLite)
 db.sqlite3
 db.sqlite3-journal
 
-# Carpetas de caché de Python
+# Carpetas y archivos de caché de Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 
 # Archivos de medios subidos por los usuarios
-# (Tu amigo no necesita tus archivos de prueba)
-media/
+# Por ahora se suben para que el ayudante pueda revisar.
+# Descomentar la siguiente línea en un entorno de producción.
+# media/
 
-# Archivos del sistema operativo
+# Carpetas de Docker
+# IGNORAR SIEMPRE el volumen de datos de la base de datos
+postgres_data/
+.docker-data/
+
+# Archivos de sistema operativo
 .DS_Store
 Thumbs.db
 
-# Archivos de Docker y herramientas de frontend
-.docker-data/
+# Carpetas de configuración de IDEs
+.vscode/
+.idea/
+
+# Archivos de herramientas de frontend (si se usaran)
 node_modules/
 npm-debug.log

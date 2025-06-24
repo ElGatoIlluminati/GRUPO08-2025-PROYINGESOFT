@@ -1,86 +1,86 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{ boletin.title }}{% endblock %}
 
 {% block content %}
 <div class="container my-5">
     <div class="row">
+        <!-- Columna de Información -->
         <div class="col-lg-4">
             <h1 class="mb-3">{{ boletin.title }}</h1>
             <hr>
+            
+            <!-- Tarjeta con la descripción -->
+            {% if boletin.description %}
+            <div class="card shadow-sm mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Descripción</h5>
+                </div>
+                <div class="card-body">
+                    <!-- El filtro 'safe' es para renderizar el formato del editor WYSIWYG -->
+                    {{ boletin.description|safe }}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Tarjeta con los detalles -->
             <div class="card shadow-sm">
                 <div class="card-header">
                     <h5 class="mb-0">Detalles</h5>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <strong>Autor:</strong> {{ boletin.author.get_full_name|default:boletin.author.username }}
-                    </li>
+                    <li class="list-group-item"><strong>Autor:</strong> {{ boletin.author.get_full_name|default:boletin.author.username }}</li>
                     <li class="list-group-item">
                         <strong>Categoría:</strong> 
-                        <span class="badge bg-primary rounded-pill">{{ boletin.category.nombre }}</span>
+                        {% if boletin.category %}
+                            <span class="badge bg-primary rounded-pill">{{ boletin.category.nombre }}</span>
+                        {% else %}
+                            <span class="text-muted">Sin categoría</span>
+                        {% endif %}
                     </li>
-                    <li class="list-group-item">
-                        <strong>Etiquetas:</strong>
-                        {% for tag in boletin.tags.all %}
-                            <span class="badge bg-secondary rounded-pill">{{ tag.nombre }}</span>
-                        {% empty %}
-                            <span class="text-muted">Sin etiquetas</span>
-                        {% endfor %}
-                    </li>
-                    <li class="list-group-item">
-                        <strong>Fecha de Creación:</strong> {{ boletin.creation_date|date:"d F, Y" }}
-                    </li>
+                    <li class="list-group-item"><strong>Fecha de Creación:</strong> {{ boletin.creation_date|date:"d F, Y" }}</li>
                     {% if boletin.last_edit_by %}
-                    <li class="list-group-item">
-                        <strong>Última Edición:</strong> Por {{ boletin.last_edit_by.username }} el {{ boletin.last_edit_date|date:"d M, Y" }}
-                    </li>
+                    <li class="list-group-item"><strong>Última Edición:</strong> Por {{ boletin.last_edit_by.username }} el {{ boletin.last_edit_date|date:"d M, Y" }}</li>
                     {% endif %}
                 </ul>
             </div>
             
             <div class="d-grid gap-2 mt-4">
-                <a href="{% url 'boletines:lista' %}" class="btn btn-outline-secondary">
-                    <i class="bi bi-arrow-left-circle me-2"></i>Volver a la lista
-                </a>
+                <a href="{% url 'boletines:lista' %}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left-circle me-2"></i>Volver a la lista</a>
             </div>
         </div>
 
+        <!-- Columna de Vista Previa -->
         <div class="col-lg-8">
-            {% if boletin.document %}
-                <div class="card shadow-sm">
+            {% if boletin.pdf_file %}
+                <div class="card shadow-sm h-100">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Vista Previa del Documento</h5>
-                        <div>
-                            <a href="{{ boletin.document.url }}" class="btn btn-success btn-sm" target="_blank">
-                                <i class="bi bi-download me-2"></i>Descargar PDF
-                            </a>
-
-                            {% if user.is_authenticated and boletin.document %}
+                        <div class="d-flex align-items-center gap-2">
+                            <a href="{{ boletin.pdf_file.url }}" class="btn btn-success btn-sm" target="_blank"><i class="bi bi-download me-1"></i>Descargar PDF</a>
+                            {% if user.is_authenticated %}
                                 <form action="{% url 'boletines:enviar_email' pk=boletin.pk %}" method="post" class="d-inline">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-info btn-sm">
-                                        <i class="bi bi-envelope-fill me-2"></i>Enviar a mi Correo
-                                    </button>
+                                    {% csrf_token %}<button type="submit" class="btn btn-info btn-sm"><i class="bi bi-envelope-fill me-1"></i>Enviar a mi Correo</button>
                                 </form>
                             {% endif %}
-                            
-                            {% if user.is_superuser or user.userprofile.role == "Editor" %}
-                                <a href="{% url 'boletines:editar' pk=boletin.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                                <a href="{% url 'boletines:eliminar' pk=boletin.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                            {% if user.is_staff or user.userprofile.role in "admin,editor" %}
+                                <a href="{% url 'boletines:editar' pk=boletin.pk %}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square me-1"></i>Editar</a>
+                                <a href="{% url 'boletines:eliminar' pk=boletin.pk %}" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill me-1"></i>Eliminar</a>
                             {% endif %}
                         </div>
                     </div>
-                    <div class="card-body p-0" style="height: 80vh;">
+                    <div class="card-body p-0" style="height: 85vh;">
+                        <!-- === CORRECCIÓN CLAVE PARA EL IFRAME === -->
                         <iframe src="{% url 'boletines:pdf_preview' pk=boletin.pk %}" width="100%" height="100%" frameborder="0">
-                            <p>Tu navegador no soporta la vista previa de PDFs. Por favor, <a href="{{ boletin.document.url }}">descárgalo</a> para verlo.</p>
+                            <p>Tu navegador no soporta la vista previa de PDFs. Por favor, <a href="{{ boletin.pdf_file.url }}">descárgalo</a> para verlo.</p>
                         </iframe>
                     </div>
                 </div>
             {% else %}
-                <div class="alert alert-warning text-center" style="height: 100%;">
-                    <h4 class="alert-heading">Sin Documento</h4>
-                    <p class="mb-0">Este boletín no tiene un documento PDF adjunto.</p>
+                <div class="alert alert-info text-center">
+                    <h4 class="alert-heading">Sin Documento PDF</h4>
+                    <p class="mb-0">Este boletín no tiene un documento PDF adjunto para previsualizar.</p>
                 </div>
             {% endif %}
         </div>

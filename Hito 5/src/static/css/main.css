@@ -31,6 +31,21 @@ body {
     /* La propiedad padding-top soluciona el problema de que el contenido
        se oculte debajo del header. Ajusta el valor si es necesario. */
     padding-top: 165px; 
+
+        /* 1. Especifica la ruta a tu imagen */
+    background-image: url('../images/background.jpg'); /* Asegúrate de que el nombre coincida con tu archivo */
+
+    /* 2. Hace que la imagen cubra toda la pantalla sin deformarse */
+    background-size: cover; 
+
+    /* 3. Centra la imagen */
+    background-position: center center;
+
+    /* 4. Evita que la imagen se repita si es muy pequeña */
+    background-repeat: no-repeat; 
+
+    /* 5. Fija la imagen para que no se mueva al hacer scroll (efecto parallax) */
+    background-attachment: fixed;
 }
 
 
@@ -67,6 +82,14 @@ body {
   color: #003b5c;
 }
 
+/* === INICIO: Wrapper para mejorar legibilidad === */
+.content-wrapper {
+    background-color: rgba(255, 255, 255, 0.92); /* Fondo blanco con 92% de opacidad */
+    padding: 2rem 2.5rem; /* Espaciado interno */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Sombra suave para darle profundidad */
+    margin-bottom: 2rem; /* Espacio extra al final */
+}
 
 /* --- Footer (Tomado de base_bottom.css) --- */
 #footer {

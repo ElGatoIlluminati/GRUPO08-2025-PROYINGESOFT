@@ -2,31 +2,31 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>VigiFIA: {% block title %}{% endblock %}</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}VIGIFIA{% endblock %}</title>
 
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Tu CSS principal -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
-    <style>
-        /* SOLUCIÓN AL PROBLEMA DE ALTURA: 
-           Añadimos un 'padding-top' al body para dejar espacio para el header que es fijo.
-           Puedes ajustar el valor (ej: 170px) si tu header es más alto o más bajo. */
-        body {
-            padding-top: 165px; 
-        }
-    </style>
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="apple-touch-icon" href="{% static 'images/favicon.png' %}">
 
     {% block extra_head %}{% endblock %}
 </head>
 
 <body class="d-flex flex-column min-vh-100">
 
-    <header id="top" class="fixed-top"> <div class="bg-white border-bottom py-3">
+    <header id="top" class="fixed-top">
+        <div class="bg-white border-bottom py-3">
             <div class="container-fluid d-flex flex-wrap align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-2">
                     <a href="https://www.fia.cl/"><img src="{% static 'images/logo_fia.webp' %}" alt="Logo FIA" style="max-height: 65px;"></a>
@@ -46,7 +46,7 @@
                 <div class="collapse navbar-collapse" id="navbarInferior">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link active" href="{% url 'core:home' %}"><i class="bi bi-house-door-fill"></i></a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'boletines:lista' %}">--BOLETINES--</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'boletines:lista' %}">BOLETINES</a></li>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <div class="d-flex align-items-center gap-2">
@@ -56,7 +56,7 @@
                             {% else %}
                                 <li class="nav-item"><a class="nav-link account" href="{% url 'users:login' %}"><i class="bi bi-person-fill"></i> INICIAR SESIÓN</a></li>
                             {% endif %}
-                            <li class="nav-item"><a class="btn btn-success d-flex align-items-center" href="https://youtu.be/dQw4w9WgXcQ?si=aySJT4rzC0YpfS15"><i class="bi bi-envelope me-1"></i> Contacto</a></li>
+                            <li class="nav-item"><a class="btn btn-success d-flex align-items-center" href="https://opia.fia.cl/601/w3-propertyvalue-46011.html"><i class="bi bi-envelope me-1"></i> Contacto</a></li>
                         </div>
                     </ul>
                 </div>
@@ -64,18 +64,24 @@
         </nav>
     </header>
 
-    <main class="container flex-grow-1 my-4">
+    <!-- La etiqueta <main> ahora solo define el área principal -->
+    <main class="container flex-grow-1">
 
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
-        {% block content %} 
-        {% endblock %}
+        <!-- Este nuevo <div> envuelve el contenido para darle el fondo blanco -->
+        <div class="content-wrapper">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            {% block content %} 
+            {% endblock %}
+        </div>
+        
     </main>
 
     <footer id="footer" class="container-fluid mt-auto py-4">
@@ -102,10 +108,10 @@
           </div>
           <div class="col-lg-3 col-md-4 col-12">
             <p class="titulo">REDES SOCIALES</p>
-            <a href="https://www.facebook.com/OpiaChile/" title="Facebook" class="rrss-icono"><span class="fa fa-facebook fa-lg"></span></a>
-            <a href="https://twitter.com/FIA_Chile" title="Twitter" class="rrss-icono"><span class="fa fa-twitter fa-lg"></span></a>
-            <a href="https://www.instagram.com/fia_chile/" title="Instagram" class="rrss-icono"><span class="fa fa-instagram fa-lg"></span></a>
-            <a href="https://www.linkedin.com/company/fiachile" title="Linkedin" class="rrss-icono"><span class="fa fa-linkedin fa-lg"></span></a>
+            <a href="https://www.facebook.com/OpiaChile/" title="Facebook" class="rrss-icono"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://twitter.com/FIA_Chile" title="Twitter" class="rrss-icono"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://www.instagram.com/fia_chile/" title="Instagram" class="rrss-icono"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/fiachile" title="Linkedin" class="rrss-icono"><i class="fa-brands fa-linkedin"></i></a>
           </div>
         </div>
       </div>
