@@ -150,10 +150,10 @@ def enviar_boletin_email_view(request, pk):
             cuerpo = f"Hola {usuario.first_name or usuario.username},\n\nAdjuntamos el boletín '{boletin.title}' que solicitaste.\n\n¡Gracias por usar VIGIFIA!"
 
             email = EmailMessage(
-                asunto,
-                cuerpo,
-                'VIGIFIA <grupo8ingesoftvigifia@gmail.com>', # Remitente
-                [usuario.email] # Destinatario
+                subject=asunto,
+                body=cuerpo,
+                from_email='VIGIFIA <grupo8ingesoftvigifia@gmail.com>', # Remitente
+                to=[usuario.email] # Destinatario
             )
 
             # Adjuntamos el archivo PDF
