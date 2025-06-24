@@ -152,7 +152,7 @@ def enviar_boletin_email_view(request, pk):
             email = EmailMessage(
                 asunto,
                 cuerpo,
-                'VIGIFIA <no-responder@vigifia.cl>', # Remitente
+                'VIGIFIA <grupo8ingesoftvigifia@gmail.com>', # Remitente
                 [usuario.email] # Destinatario
             )
 
