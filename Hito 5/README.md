@@ -24,7 +24,7 @@ Primero, clonar este repositorio en la máquina local y navegar a la carpeta cor
 git clone https://github.com/ElGatoIlluminati/GRUPO08-2025-PROYINGESOFT.git
 
 # Navegar a la carpeta del Hito 5
-cd GRUPO08-2025-PROYINGESOFT/Hito\ 5/
+cd "GRUPO08-2025-PROYINGESOFT/Hito 5/"
 ````
 
 ### 2\. Configurar las Variables de Entorno
