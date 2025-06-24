@@ -2,6 +2,7 @@
 # Nunca subir credenciales al repositorio
 .env
 .env.*
+!*.env.example
 
 # Archivos de base de datos local (si se usara SQLite)
 db.sqlite3
