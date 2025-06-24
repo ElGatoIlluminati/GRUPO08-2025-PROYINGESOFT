@@ -13,6 +13,3 @@ COPY requirements.txt .
 
 # 5. Instalar las dependencias
 RUN pip install --no-cache-dir -r requirements.txt
-
-# 6. Copiar todo el código de la carpeta 'src' local a la carpeta de trabajo del contenedor
-COPY ./src .
