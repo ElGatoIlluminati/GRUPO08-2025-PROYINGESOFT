@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect 
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages 
+from django.http import FileResponse, HttpResponse
 from .models import Boletin
 from .forms import BoletinForm 
 
@@ -51,9 +52,6 @@ class BoletinDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('boletines:lista')
 
 
-
-
-
 @login_required # Protegemos para que solo usuarios logueados puedan acceder
 def generar_boletin_view(request):
     # Por ahora, esta vista no hace nada más que mostrar la página.
@@ -73,3 +71,21 @@ def generar_boletin_view(request):
         return redirect('boletines:lista') # Redirigimos a la lista por ahora
 
     return render(request, 'boletines/generar_boletin.html')
+
+# Para la previsualización segura de PDF
+def pdf_preview_view(request, pk):
+    boletin = get_object_or_404(Boletin, pk=pk)
+    if not boletin.document:
+        return HttpResponse("Documento no encontrado.", status=404)
+
+    try:
+        # Creamos una respuesta de archivo para enviar el PDF
+        response = FileResponse(boletin.document.open('rb'), content_type='application/pdf')
+
+        # ¡LA LÍNEA CLAVE! Esta cabecera le da permiso al navegador para mostrar el PDF en un iframe
+        # 'self' significa que solo se permite si la página principal es del mismo origen (tu propio sitio)
+        response['Content-Security-Policy'] = "frame-ancestors 'self'"
+
+        return response
+    except FileNotFoundError:
+        return HttpResponse("Archivo no encontrado en el servidor.", status=404)
