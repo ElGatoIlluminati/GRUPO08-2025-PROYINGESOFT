@@ -28,10 +28,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY','django-insecure-0rcb7t9-!e60rq1zlp2!&pkh40!8@&!w)4fnk_azj9=t^fg++n')
+SECRET_KEY = os.getenv('SECRET_KEY') # Debe ser SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', '0') == '1' # Lee el valor de DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -85,12 +85,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASS'),
+        'NAME': os.getenv('POSTGRES_DB'),         # Corregido
+        'USER': os.getenv('POSTGRES_USER'),       # Corregido
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'), # Corregido
         'HOST': os.getenv('DB_HOST'),
         'PORT': os.getenv('DB_PORT'),
     }
@@ -131,11 +132,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static'] # BASE_DIR ahora apunta a 'src'
+# Static files & Media files
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
+# Tenías MEDIA_URL y MEDIA_ROOT duplicados. Déjalo así:
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR.parent / 'media' # Sube un nivel desde 'src' a la raíz del proyecto
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

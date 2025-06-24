@@ -5,12 +5,10 @@ services:
   db:
     image: postgres:15-alpine
     container_name: postgres_db
+    env_file:
+      - ./.env # Carga las variables desde el archivo .env
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_DB=mi_db
-      - POSTGRES_USER=mi_usuario
-      - POSTGRES_PASSWORD=mi_clave
     ports:
       - "5432:5432"
 
@@ -18,20 +16,13 @@ services:
   web:
     build: .
     container_name: django_web
-    command: >
-      sh -c "chown -R root:root /app/media && 
-             python manage.py runserver 0.0.0.0:8000"
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./src:/app
-      - ./media:/app/media
     ports:
       - "8000:8000"
-    environment:
-      - DB_NAME=mi_db
-      - DB_USER=mi_usuario
-      - DB_PASS=mi_clave
-      - DB_HOST=db
-      - DB_PORT=5432
+    env_file:
+      - ./.env # Carga las variables desde el archivo .env
     depends_on:
       - db
 

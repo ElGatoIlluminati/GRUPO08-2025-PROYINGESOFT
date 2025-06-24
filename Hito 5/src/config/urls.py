@@ -18,19 +18,18 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from core.views import home_view
 
 urlpatterns = [
-    path('admin/', admin.site.urls), # El admin de Django por defecto
-
-    # URL "secreta" para panel personalizado
-    path('gestion-secreta/', include('dashboard.urls')),
-    # Cualquier URL que empiece con 'boletines/' será manejada por la app 'boletines'
+    path('', home_view, name='home'), 
+    
+    # Tus otras URLs
+    path('admin/', admin.site.urls),
+    path('gestion-secreta/', include('users.urls')),
     path('boletines/', include('boletines.urls')),
-    # Cualquier URL de cuentas (login, logout, etc.) será manejada por la app 'users'
     path('cuentas/', include('users.urls')),
-
-    # La ruta raíz ahora la maneja la app 'core'
-    path('', include('core.urls')),
+    path('core/', include('core.urls')),
+    path('dashboard/', include('dashboard.urls')),
 ]
 
 # Esto es para servir archivos de media (subidos por usuarios) en modo DEBUG
