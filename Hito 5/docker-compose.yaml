@@ -6,7 +6,7 @@ services:
     image: postgres:15-alpine
     container_name: postgres_db
     env_file:
-      - ./.env # Carga las variables desde el archivo .env
+      - ./.env
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     ports:
@@ -21,8 +21,9 @@ services:
       - ./src:/app
     ports:
       - "8000:8000"
+    # La aplicación web también lee desde .env, asegurando consistencia
     env_file:
-      - ./.env # Carga las variables desde el archivo .env
+      - ./.env
     depends_on:
       - db
 
