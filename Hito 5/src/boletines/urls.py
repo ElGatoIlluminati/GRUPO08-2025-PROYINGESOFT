@@ -13,8 +13,11 @@ urlpatterns = [
     # ej: http://localhost:8000/boletines/5/
     path('<int:pk>/', views.BoletinDetailView.as_view(), name='detalle'),
     
-    #   Ruta para la vista previa del PDF
+    # Ruta para la vista previa del PDF
     path('<int:pk>/preview/', views.pdf_preview_view, name='pdf_preview'),
+
+    # Ruta para enviar el boletín por correo
+    path('<int:pk>/enviar-correo/', views.enviar_boletin_email_view, name='enviar_email'),
 
     # Ruta para crear un nuevo boletín
     # ej: http://localhost:8000/boletines/crear/

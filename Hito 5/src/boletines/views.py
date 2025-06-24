@@ -5,28 +5,66 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages 
 from django.http import FileResponse, HttpResponse
+from django.core.mail import EmailMessage
 from .models import Boletin
 from .forms import BoletinForm 
 
 # Create your views here.
 
-# Vista para listar todos los boletines (nuestra página de inicio)
+# Vista para listar todos los boletines
 class BoletinListView(ListView):
     model = Boletin
-    template_name = 'boletines.html'  # Usará la plantilla que ya tienes
-    context_object_name = 'boletines' # Nombre de la variable en la plantilla
-    ordering = ['-creation_date'] # Ordenar del más nuevo al más antiguo
+    template_name = 'boletines/boletin_list.html'
+    context_object_name = 'boletines'
+    paginate_by = 9 # Opcional: Muestra 9 boletines por página
+
+    def get_queryset(self):
+        """
+        Sobrescribimos este método para añadir la lógica de filtro.
+        """
+        queryset = super().get_queryset().order_by('-creation_date')
+        
+        # Obtenemos los parámetros de la URL
+        search_query = self.request.GET.get('q', None)
+        fecha_desde = self.request.GET.get('fecha_desde', None)
+        fecha_hasta = self.request.GET.get('fecha_hasta', None)
+
+        # Aplicamos los filtros si existen
+        if search_query:
+            # Filtra por título que contenga el texto de búsqueda (insensible a mayúsculas)
+            queryset = queryset.filter(title__icontains=search_query)
+        
+        if fecha_desde:
+            # Filtra por fecha de creación mayor o igual a la fecha "desde"
+            queryset = queryset.filter(creation_date__date__gte=fecha_desde)
+
+        if fecha_hasta:
+            # Filtra por fecha de creación menor o igual a la fecha "hasta"
+            queryset = queryset.filter(creation_date__date__lte=fecha_hasta)
+            
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        """
+        Pasamos los valores actuales del filtro de vuelta a la plantilla
+        para que los campos de búsqueda no se borren después de enviar.
+        """
+        context = super().get_context_data(**kwargs)
+        context['current_search'] = self.request.GET.get('q', '')
+        context['current_fecha_desde'] = self.request.GET.get('fecha_desde', '')
+        context['current_fecha_hasta'] = self.request.GET.get('fecha_hasta', '')
+        return context
 
 # Vista para ver el detalle de un solo boletín
 class BoletinDetailView(DetailView):
     model = Boletin
-    template_name = 'boletin_detalle.html' # Necesitarás crear esta plantilla
+    template_name = 'boletines/boletin_detalle.html' # Necesitarás crear esta plantilla
     context_object_name = 'boletin'
 
 # Vista para crear un nuevo boletín
 class BoletinCreateView(LoginRequiredMixin, CreateView):
     model = Boletin
-    form_class = BoletinForm      # <--- 2. USA form_class EN LUGAR DE 'fields'
+    form_class = BoletinForm      # <--- 2. Usa form_class EN LUGAR DE 'fields'
     template_name = 'boletines/crear_boletin.html' # Usaremos una nueva ruta de plantilla
     success_url = reverse_lazy('boletines:lista')
 
@@ -48,7 +86,7 @@ class BoletinUpdateView(LoginRequiredMixin, UpdateView):
 # Vista para eliminar un boletín
 class BoletinDeleteView(LoginRequiredMixin, DeleteView):
     model = Boletin
-    template_name = 'boletin_confirmar_eliminar.html' # Necesitarás crear esta plantilla
+    template_name = 'boletines/boletin_confirmar_eliminar.html' # Necesitarás crear esta plantilla
     success_url = reverse_lazy('boletines:lista')
 
 
@@ -89,3 +127,47 @@ def pdf_preview_view(request, pk):
         return response
     except FileNotFoundError:
         return HttpResponse("Archivo no encontrado en el servidor.", status=404)
+    
+# Vista para manejar el envío de correos
+@login_required
+def enviar_boletin_email_view(request, pk):
+    # Usamos POST para que esta acción no se pueda ejecutar accidentalmente
+    if request.method == 'POST':
+        boletin = get_object_or_404(Boletin, pk=pk)
+        usuario = request.user
+
+        if not boletin.document:
+            messages.error(request, "Este boletín no tiene un documento para enviar.")
+            return redirect('boletines:detalle', pk=boletin.pk)
+
+        if not usuario.email:
+            messages.error(request, "Tu perfil no tiene una dirección de correo electrónico para recibir el boletín.")
+            return redirect('boletines:detalle', pk=boletin.pk)
+
+        try:
+            # Construimos el correo
+            asunto = f"Tu Boletín VIGIFIA: {boletin.title}"
+            cuerpo = f"Hola {usuario.first_name or usuario.username},\n\nAdjuntamos el boletín '{boletin.title}' que solicitaste.\n\n¡Gracias por usar VIGIFIA!"
+
+            email = EmailMessage(
+                asunto,
+                cuerpo,
+                'VIGIFIA <no-responder@vigifia.cl>', # Remitente
+                [usuario.email] # Destinatario
+            )
+
+            # Adjuntamos el archivo PDF
+            boletin.document.open() # Abrimos el archivo
+            email.attach(f'{boletin.title}.pdf', boletin.document.read(), 'application/pdf')
+            boletin.document.close() # Lo cerramos
+
+            # Enviamos el correo (en nuestro caso, lo imprimirá en la consola)
+            email.send()
+
+            messages.success(request, f"¡El boletín ha sido enviado a tu correo: {usuario.email}!")
+
+        except Exception as e:
+            messages.error(request, f"Ocurrió un error al intentar enviar el correo: {e}")
+
+    # Redirigimos siempre a la página de detalle
+    return redirect('boletines:detalle', pk=pk)

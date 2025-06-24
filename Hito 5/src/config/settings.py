@@ -149,3 +149,16 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+
+# =================================================================== #
+#         CONFIGURACIÓN DE ENVÍO DE CORREO (PRODUCCIÓN)             #
+# =================================================================== #
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True # Usar Transport Layer Security para una conexión segura
+
+# Leemos el usuario y la contraseña desde las variables de entorno
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')

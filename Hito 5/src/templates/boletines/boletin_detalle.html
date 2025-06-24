@@ -55,6 +55,15 @@
                             <a href="{{ boletin.document.url }}" class="btn btn-success btn-sm" target="_blank">
                                 <i class="bi bi-download me-2"></i>Descargar PDF
                             </a>
+
+                            {% if user.is_authenticated and boletin.document %}
+                                <form action="{% url 'boletines:enviar_email' pk=boletin.pk %}" method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-info btn-sm">
+                                        <i class="bi bi-envelope-fill me-2"></i>Enviar a mi Correo
+                                    </button>
+                                </form>
+                            {% endif %}
                             
                             {% if user.is_superuser or user.userprofile.role == "Editor" %}
                                 <a href="{% url 'boletines:editar' pk=boletin.pk %}" class="btn btn-warning btn-sm">Editar</a>
