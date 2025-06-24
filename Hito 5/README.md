@@ -56,6 +56,7 @@ Con los contenedores ya corriendo, se necesita inicializar la base de datos.
 1.  **Aplicar Migraciones:** Este comando crea toda la estructura de tablas que Django necesita.
 
     ```bash
+    docker-compose exec web python manage.py makemigrations django_summernote
     docker-compose exec web python manage.py migrate
     ```
 
@@ -71,6 +72,12 @@ Con los contenedores ya corriendo, se necesita inicializar la base de datos.
 
     ```bash
     docker-compose exec web python manage.py crear_usuarios_prueba
+    ```
+
+4.  **Cargar el sitio:** Carga la página (En caso de no funcionar en el primero intento, presionar Ctrl + C e intentar nuevamente)
+
+    ```bash
+    docker-compose up
     ```
 
 ### 5\. Final
