@@ -36,7 +36,7 @@ El proyecto necesita un archivo `.env` para cargar las credenciales y configurac
 cp .env.example .env
 ```
 
-> **Nota:** No se necesita modificar este archivo. Los valores por defecto están diseñados para funcionar con la configuración de Docker Compose.
+> **Nota:** No se necesita modificar este archivo. Los valores por defecto están diseñados para funcionar con la configuración de Docker Compose, por lo cual solo se debe cambiar el nombre de .env.example por .env
 
 ### 3\. Construir y Levantar los Contenedores
 
